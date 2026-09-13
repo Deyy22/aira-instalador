@@ -16,6 +16,7 @@ const fs = require('fs')
 const os = require('os')
 const net = require('net')
 const path = require('path')
+const { execSync } = require('child_process')
 const { createClient } = require('@supabase/supabase-js')
 
 const SUPABASE_URL = 'https://dvigxxkmqjhobnzgwfgg.supabase.co'
@@ -184,9 +185,26 @@ function imprimir(ip, datos) {
     paso('Impresora encontrada en ' + ip + '. Imprimiendo una prueba...')
     await imprimir(ip, papelDePrueba(alta.negocio))
 
-    // Que quede anotada en Aira: así se puede cambiar en remoto sin venir aquí
+    // Que quede anotada en Aira: así se puede cambiar en remoto sin venir aquí.
+    //
+    // Se guarda también la MAC. La IP la reparte el router y puede cambiar con
+    // un corte de luz; la MAC es del hardware y no cambia nunca. Con ella
+    // apuntada, si el día de mañana la impresora aparece en otra dirección, el
+    // agente la reconoce y se reconfigura solo. La leemos justo después de la
+    // prueba, que es cuando la tabla ARP del sistema acaba de refrescarse.
+    let mac = null
     try {
-      await supabase.rpc('agente_set_impresora', { p_token: alta.token, p_ip: ip })
+      const salida = execSync('arp -a ' + ip, { encoding: 'latin1', timeout: 4000 })
+      const re = /(\d{1,3}(?:\.\d{1,3}){3})\s+([0-9a-fA-F]{2}(?:[-:][0-9a-fA-F]{2}){5})/g
+      let m
+      while ((m = re.exec(salida)) !== null) {
+        if (m[1] === ip) { mac = m[2].toLowerCase().replace(/:/g, '-'); break }
+      }
+    } catch {
+      // sin MAC el agente funciona igual: la aprenderá él solo al primer ticket
+    }
+    try {
+      await supabase.rpc('agente_set_impresora', { p_token: alta.token, p_ip: ip, p_mac: mac })
     } catch {
       // si no se puede anotar, el agente funciona igual con lo que tiene
     }
