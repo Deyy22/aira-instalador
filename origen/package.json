@@ -1,0 +1,9 @@
+{
+  "name": "aira-agente",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Agente de impresion de Aira",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.110.8"
+  }
+}

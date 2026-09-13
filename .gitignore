@@ -1,0 +1,18 @@
+# El motor de Node y las librerías: son 107 MB que se pueden volver a bajar
+# en cualquier momento con "npm install". Meterlos en git dejaría el historial
+# inflado para siempre sin ganar nada.
+origen/node.exe
+origen/node_modules/
+
+# El agente vive en el repositorio reservas-gijon (public/agente/). Aquí solo
+# se copia al construir, para no tener dos copias que se desincronicen.
+origen/agente.js
+
+# El instalador compilado va a las Releases, no al repositorio.
+salida/
+
+# Restos de las pruebas de instalación
+origen/aira-config.json
+origen/resultado.json
+origen/estado.json
+origen/aira-log*.txt
