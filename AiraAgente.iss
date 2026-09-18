@@ -21,7 +21,7 @@
 ; ============================================================================
 
 #define Nombre      "Aira · Agente de impresion"
-#define Version     "1.0.0"
+#define Version     "1.1.0"
 #define Publicador  "Aira"
 #define Web         "https://airareservas.es"
 #define Tarea       "Aira agente de impresion"
