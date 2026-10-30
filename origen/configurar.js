@@ -20,13 +20,15 @@ const { execSync } = require('child_process')
 const { createClient } = require('@supabase/supabase-js')
 
 const SUPABASE_URL = 'https://dvigxxkmqjhobnzgwfgg.supabase.co'
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2aWd4eGttcWpob2Juemd3ZmdnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ2NTk2MzcsImV4cCI6MjEwMDIzNTYzN30.GbULJh6DcOoN8p4iwZYuzQaGFWWNLBw1nP0WwJGst-c'
+// Clave publicable: pública a propósito, como la de la web. Las JWT antiguas
+// caducan todas al rotar el secreto del proyecto; esta no depende de él.
+const SUPABASE_CLAVE = 'sb_publishable_UUw26VYgC4e8kqqeZ47Tpg_SUnjw59e'
 
 const PUERTO_IMPRESORA = 9100
 const ESPERA_SONDEO_MS = 400      // por equipo de la red
 const A_LA_VEZ = 40               // cuántos se prueban en paralelo
 
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+const supabase = createClient(SUPABASE_URL, SUPABASE_CLAVE)
 const aqui = (f) => path.join(__dirname, f)
 
 function guardarResultado(obj) {

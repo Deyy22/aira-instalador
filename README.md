@@ -49,7 +49,7 @@ cd origen && npm install && cd ..
 
 # 2. Traer la versión del agente que se quiere empaquetar: la que esté publicada
 #    como "estable" en agente_versiones (si no, se actualizaría sola al arrancar)
-copy ..\reservas-gijon\public\agente\2.1.3.js origen\agente.js
+copy ..\reservas-gijon\public\agente\2.1.4.js origen\agente.js
 
 # 3. Compilar
 "%LOCALAPPDATA%\Programs\Inno Setup 6\ISCC.exe" AiraAgente.iss
